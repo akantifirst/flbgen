@@ -1,0 +1,199 @@
+/* Стили для контейнера и общие стили формы */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Стили для заголовка с логотипом */
+.header {
+    display: flex;
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center;
+    gap: 20px; /* Отступ между логотипом и текстом */
+}
+
+.logo {
+    width: 300px; /* Увеличенный размер логотипа */
+    height: 100px;
+
+    /* Удаление пустого пространства вокруг логотипа */
+    object-fit: cover;
+    object-position: center; /* Сдвигаем логотип к левой границе */
+
+    /* Опционально: если объект имеет больше пустого пространства сверху или снизу */
+    margin-right: -70px; /* Подтягиваем логотип левее, чтобы убрать лишнее пространство */
+}
+
+h1 {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Стили для форм */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Стили для кнопок */
+button {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.add-room-button {
+    background-color: #0d6071; /* Изменён цвет */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-room-button:hover {
+    background-color: #08414d; /* Более тёмный оттенок при наведении */
+}
+
+
+.download-button button {
+    background-color: #515251;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.download-button button:hover {
+    background-color: #000000;
+}
+
+
+/* Стили для секции помещения */
+.room-section {
+    margin-bottom: 20px;
+}
+
+/* Стили для заголовка помещения */
+.room-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* Контейнер для поля ввода и кнопки */
+.input-with-button {
+    display: flex;
+    align-items: center;
+    gap: 18px; /* Уменьшенное расстояние между полем ввода и кнопкой удаления */
+}
+
+.room-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: calc(100% - 50px); /* Увеличенная длина поля ввода */
+}
+
+/* Стили для поля ввода с подсказкой */
+.room-input::placeholder {
+    color: #ccc; /* Светло-серый цвет для текста подсказки */
+    font-style: italic; /* Дополнительно можно сделать текст курсивом для лучшего восприятия */
+}
+
+.remove-room-button {
+    background-color: #f0f0f0;
+    color: #b00020;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-room-button:hover {
+    background-color: #e0e0e0;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin: 20px 0;
+}
+
+.error {
+    color: #b00020;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Стили для футера */
+.footer {
+    background-color: #f8f9fa; /* Светлый фон */
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #e7e7e7; /* Верхняя граница для отделения футера */
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.footer-content p {
+    font-family: 'Roboto', sans-serif;
+    margin: 0 0 10px 0;
+}
+
+.room-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.room-block input {
+    margin-right: 10px;
+}
+.room-block button {
+    margin-left: 5px;
+}
+
+.checkbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 25%; /* Делит пространство на 4 столбца */
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.column label {
+    display: block;
+    margin-bottom: 10px;
+}

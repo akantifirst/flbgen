@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>NB+ FLB GA Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .input-with-arrows {
+            display: flex;
+            align-items: center;
+        }
+
+        .room-input {
+            flex-grow: 1;
+            margin-left: 5px;
+        }
+
+        .arrow-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1px; /* Уменьшенное расстояние между кнопками */
+        }
+
+        .arrow-buttons button {
+            width: 24px;  /* Размер кнопки */
+            height: 18px; /* Уменьшена высота кнопки */
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Треугольник вверх */
+        .arrow-up::before {
+            content: '';
+            position: absolute;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #515251; /* Цвет стрелки */
+            transition: border-color 0.2s; /* Плавный переход цвета при наведении */
+        }
+
+        /* Треугольник вниз */
+        .arrow-down::before {
+            content: '';
+            position: absolute;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #515251; /* Цвет стрелки */
+            transition: border-color 0.2s; /* Плавный переход цвета при наведении */
+        }
+
+        /* Изменение цвета стрелки при наведении */
+        .arrow-up:hover::before {
+            border-bottom-color: black;
+        }
+
+        .arrow-down:hover::before {
+            border-top-color: black;
+        }
+
+        .arrow-buttons button:focus {
+            outline: none;
+        }
+
+        /* Стили кнопок удаления и добавления */
+        .remove-room-button,
+        .add-room-button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .add-room-button {
+            font-size: 22px;
+        }
+
+        .remove-room-button:hover,
+        .add-room-button:hover {
+            color: red;
+        }
+
+    </style>
+    <script>
+        let roomIndex = 0; // Инициализируем с 0
+
+        function addRoom() {
+            const container = document.getElementById('rooms-container');
+
+            const roomDiv = document.createElement('div');
+            roomDiv.className = 'room-section';
+            roomDiv.setAttribute('data-index', roomIndex);
+
+            roomDiv.innerHTML = `
+    <hr>
+    <div class="form-group">
+        <div class="input-with-arrows">
+            <div class="arrow-buttons">
+                <button type="button" class="arrow-up" onclick="moveUp(${roomIndex})"></button>
+                <button type="button" class="arrow-down" onclick="moveDown(${roomIndex})"></button>
+            </div>
+            <input type="text" id="room_type_${roomIndex}" name="room_type" class="room-input" placeholder="Raumtyp" required>
+            <button type="button" class="add-room-button" onclick="addRoom()" title="Добавить помещение">
+                +
+            </button>
+            <button type="button" class="remove-room-button" onclick="removeRoom(${roomIndex})" title="Удалить помещение">
+                &#10005;
+            </button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="checkbox-grid">
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Lüftung">
+                    Lüftung
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Sonnenschutz">
+                    Sonnenschutz
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Temperierung">
+                    Temperierung
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Visualisierung">
+                    Visualisierung
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Beleuchtung">
+                    Beleuchtung
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Heizung">
+                    Heizung
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Kühlung">
+                    Kühlung
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Sicherheit">
+                    Sicherheit
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Audio">
+                    Audio
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Video">
+                    Video
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Jalousien">
+                    Jalousien
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Alarm">
+                    Alarm
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Netzwerk">
+                    Netzwerk
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Telefon">
+                    Telefon
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Internet">
+                    Internet
+                </label>
+                <label>
+                    <input type="checkbox" name="features_${roomIndex}" value="Notbeleuchtung">
+                    Notbeleuchtung
+                </label>
+            </div>
+        </div>
+    </div>
+`;
+
+            container.appendChild(roomDiv);
+            roomIndex++; // Увеличиваем индекс после добавления помещения
+        }
+
+        function removeRoom(index) {
+            const roomDiv = document.querySelector(`div.room-section[data-index="${index}"]`);
+            roomDiv.remove();
+        }
+
+        function moveUp(index) {
+            const currentRoom = document.querySelector(`div.room-section[data-index="${index}"]`);
+            const previousRoom = currentRoom.previousElementSibling;
+            if (previousRoom) {
+                currentRoom.parentNode.insertBefore(currentRoom, previousRoom); // Перемещаем блок вверх
+            }
+        }
+
+        function moveDown(index) {
+            const currentRoom = document.querySelector(`div.room-section[data-index="${index}"]`);
+            const nextRoom = currentRoom.nextElementSibling;
+            if (nextRoom) {
+                currentRoom.parentNode.insertBefore(nextRoom, currentRoom); // Перемещаем блок вниз
+            }
+        }
+
+        window.onload = function() {
+            // Добавляем первую секцию помещения по умолчанию
+            addRoom();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Funktionelle Leistungsbeschreibung Gebäudeautomation</h1>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo" class="logo">
+        </div>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <div id="rooms-container">
+                <!-- Секции помещений будут добавляться здесь -->
+            </div>
+            <div class="form-group download-button">
+                <button type="submit">FLB herunterladen</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Минималистичный футер -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 Alexander Popov. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+</body>
+</html>
